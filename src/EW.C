@@ -61,6 +61,11 @@
 #include "F77_FUNC.h"
 #include "EWCuda.h"
 
+extern "C" {
+  void begin_timestep_();
+  void end_timestep_();
+}
+
 #ifndef SW4_CROUTINES
 extern "C" {
    void F77_FUNC(rhs4th3fortsgstr,RHS4TH3FORTSGSTR)( int*, int*, int*, int*, int*, int*, int*, int*, 
@@ -2526,6 +2531,7 @@ void EW::timesteploop( vector<Sarray>& U, vector<Sarray>& Um )
 // Begin time stepping loop
    for( int currentTimeStep = beginCycle; currentTimeStep <= mNumberOfTimeSteps; currentTimeStep++ )
    {    
+      begin_timestep_();
       time_measure[0] = MPI_Wtime();
       // Predictor 
       // Need U on device for evalRHS,
@@ -2875,6 +2881,7 @@ void EW::timesteploop( vector<Sarray>& U, vector<Sarray>& Um )
 	 for( int s = 0 ; s < 12 ; s++ )
 	    trdata[s+12*(currentTimeStep-beginCycle)]= time_measure[s];
 
+      end_timestep_();
    } // end time stepping loop
    double time_end_solve = MPI_Wtime();
    print_execution_time( time_start_solve, time_end_solve, "solver phase" );

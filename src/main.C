@@ -35,8 +35,14 @@
 using namespace std;
 #include "EW.h"
 
+extern "C" {
+  void init_timestep_();
+  void exit_timestep_();
+}
+
 int main( int argc, char** argv )
 {
+   init_timestep_();
    //MPI_Init(&argc, &argv);
    int myRank;
    double  time_start, time_end;
@@ -70,6 +76,7 @@ int main( int argc, char** argv )
    time_end = MPI_Wtime();
    if(myRank == 0) cout <<  " Total running time: " << time_end - time_start << endl;
 
+   exit_timestep_();
    MPI_Finalize();
 
    return 0;

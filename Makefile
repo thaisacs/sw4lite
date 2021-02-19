@@ -132,7 +132,7 @@ else
   FC  = mpif90
   CXX = mpic++
   OMPOPT = -fopenmp
-  EXTRA_LINK_FLAGS = -lgfortran -lblas -llapack
+  EXTRA_LINK_FLAGS = -lgfortran -lblas -llapack 
   openmp = no
   debug = no
 endif
@@ -250,7 +250,7 @@ sw4lite: $(PMODS) $(FOBJ)
 	@echo "FC=" $(FC) " EXTRA_FORT_FLAGS=" $(EXTRA_FORT_FLAGS)
 	@echo "EXTRA_LINK_FLAGS"= $(EXTRA_LINK_FLAGS)
 	@echo "******************************************************"
-	cd $(builddir); $(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(linklibs)
+	cd $(builddir); $(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(linklibs) ../../kernel_stats/kernel_stats.o
 	@cat wave.txt
 	@echo "*** Build directory: " $(builddir) " ***"
 
@@ -262,19 +262,20 @@ testil : $(FOBJ2)
 
 $(builddir)/%.o:src/%.C
 	/bin/mkdir -p $(builddir)
-	cd $(builddir); $(CXX) $(CXXFLAGS) -c ../$< 
+	cd $(builddir); $(CXX) $(CXXFLAGS) -c ../$<
+#	cd $(builddir); $(CXX) $(CXXFLAGS) ../$< ../../kernel_stats/kernel_stats.o
 
 $(builddir)/%.o:src/%.c
 	/bin/mkdir -p $(builddir)
-	cd $(builddir); $(CC) $(CFLAGS) -c ../$< 
+	cd $(builddir); $(CC) $(CFLAGS) -c ../$<
 
 $(builddir)/%.o:src/%.f
 	/bin/mkdir -p $(builddir)
-	cd $(builddir); $(FC) $(FFLAGS) $(IBMF77FLAG) -c ../$< 
+	cd $(builddir); $(FC) $(FFLAGS) $(IBMF77FLAG) -c ../$<
 
 $(builddir)/%.o:src/%.f90
 	/bin/mkdir -p $(builddir)
-	cd $(builddir); $(FC) $(FFLAGS) -c ../$< 
+	cd $(builddir); $(FC) $(FFLAGS) -c ../$<
 
 $(builddir)/%.mod:src/%.f90
 	/bin/mkdir -p $(builddir)
