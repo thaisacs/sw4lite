@@ -12,7 +12,7 @@ developer reporttiming=1 checkfornan=0 corder=no
 
 grid h=10 nx=128 ny=128 nz=512
 #time t=2
-time steps=10
+time steps=50
 
 fileio path=basic-results verbose=1
 
