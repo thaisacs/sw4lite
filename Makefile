@@ -250,7 +250,7 @@ sw4lite: $(PMODS) $(FOBJ)
 	@echo "FC=" $(FC) " EXTRA_FORT_FLAGS=" $(EXTRA_FORT_FLAGS)
 	@echo "EXTRA_LINK_FLAGS"= $(EXTRA_LINK_FLAGS)
 	@echo "******************************************************"
-	cd $(builddir); $(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(linklibs) ../../../utils/kernel_stats.o
+	cd $(builddir); $(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(linklibs) ../../../utils/obj/*.o
 	@cat wave.txt
 	@echo "*** Build directory: " $(builddir) " ***"
 
