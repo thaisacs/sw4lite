@@ -64,6 +64,7 @@
 extern "C" {
   void begin_timestep_();
   void end_timestep_();
+	void after_timestep_();
 }
 
 #ifndef SW4_CROUTINES
@@ -2883,6 +2884,7 @@ void EW::timesteploop( vector<Sarray>& U, vector<Sarray>& Um )
 
       end_timestep_();
    } // end time stepping loop
+	 after_timestep_();
    double time_end_solve = MPI_Wtime();
    print_execution_time( time_start_solve, time_end_solve, "solver phase" );
    if( m_output_detailed_timing )
